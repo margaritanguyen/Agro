@@ -1,0 +1,30 @@
+﻿@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<ul class="pager">
+    <li class="pager-item pager-item-prev @prevDisabled">
+        <a class="pager-link" href="@Url.Action("Index", new {pageNumber=@Model.PageIndex - 1})">
+            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12">
+                <g fill="none" fill-rule="evenodd">
+                    <path fill="#33313C" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
+                </g>
+            </svg>
+        </a>
+    </li>
+    @for (var pageNum = 1; pageNum <= @Model.TotalPages; pageNum++)
+    {
+        var isActive = (@pageNum == @Model.PageIndex) ? "active" : "";
+        <li class="pager-item @isActive"><a class="pager-link" href="@Url.Action("Index", new {pageNumber=@pageNum})">@pageNum</a></li>
+    }
+    <li class="pager-item pager-item-next @nextDisabled">
+        <a class="pager-link" href="@Url.Action("Index", new {pageNumber=(@Model.PageIndex + 1)})">
+            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12">
+                <g fill="none" fill-rule="evenodd">
+                    <path fill="#33313C" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
+                </g>
+            </svg>
+        </a>
+    </li>
+</ul>

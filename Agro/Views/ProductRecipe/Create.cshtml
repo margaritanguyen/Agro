@@ -1,0 +1,38 @@
+﻿@model ProductRecipeViewModel
+@{
+    ViewData["Title"] = "Добавить рецепт";
+}
+
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-7">
+            <div class="mb-4">
+                <h3>Добавить рецепт</h3>
+            </div>
+            <form asp-action="Create" asp-controller="ProductRecipe">
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.ProductId, "Продукт")
+                    @Html.DropDownListFor(m=>m.ProductId, new SelectList(ViewBag.Products, "Id", "ShortName"),
+                    new { @class="form-control", @readonly="readonly" })
+                    @Html.ValidationMessageFor(m=>m.ProductId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Version, "Версия")
+                    @Html.TextBoxFor(m=>m.Version, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.Version)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.IsEnabled, "Доступен")
+                    @Html.CheckBoxFor(m=>m.IsEnabled, new { @class="form-check" })
+                    @Html.ValidationMessageFor(m=>m.IsEnabled)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Comment, "Комментарий")
+                    @Html.TextAreaFor(m=>m.Comment, 3, 1, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.Comment)
+                </div>
+                <button type="submit" class="btn btn-block btn-primary">Добавить</button>
+            </form>
+        </div>
+    </div>
+</div>

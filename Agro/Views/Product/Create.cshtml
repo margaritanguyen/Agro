@@ -1,0 +1,63 @@
+﻿@model ProductViewModel
+@{
+    ViewData["Title"] = "Добавить продукт";
+}
+
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-7">
+            <div class="mb-4">
+                <h3>Добавить продукт</h3>
+            </div>
+            <form asp-action="Create" asp-controller="Product">
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Number, "Номер")
+                    @Html.TextBoxFor(m=>m.Number, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.Number)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.ShortName, "Сокращенное название")
+                    @Html.TextBoxFor(m=>m.ShortName, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.ShortName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Name, "Полное название")
+                    @Html.TextBoxFor(m=>m.Name, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.Name)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.MinBatchSize, "Минимальный размер порции, кг")
+                    @Html.TextBoxFor(m=>m.MinBatchSize, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.MinBatchSize)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.MaxBatchSize, "Максимальный размер порции, кг")
+                    @Html.TextBoxFor(m=>m.MaxBatchSize, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.MaxBatchSize)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.MixTime, "Время смешивания, с")
+                    @Html.TextBoxFor(m=>m.MixTime, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.MixTime)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.DryMixTime, "Время сухого смешивания, с")
+                    @Html.TextBoxFor(m=>m.DryMixTime, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.DryMixTime)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.AnimalGroupId, "Группа животных")
+                    @Html.DropDownListFor(m=>m.AnimalGroupId, new SelectList(ViewBag.AnimalGroups, "Id", "Name"),
+                    "Не выбрана", new { @class="form-select" })
+                    @Html.ValidationMessageFor(m=>m.AnimalGroupId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Comment, "Комментарий")
+                    @Html.TextAreaFor(m=>m.Comment, 3, 1, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.Comment)
+                </div>
+                <button type="submit" class="btn btn-block btn-primary">Добавить</button>
+            </form>
+        </div>
+    </div>
+</div>

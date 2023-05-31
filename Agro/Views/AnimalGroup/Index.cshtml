@@ -1,0 +1,67 @@
+﻿@model Agro.Pagination.PaginatedList<AnimalGroupViewModel>
+@{
+    ViewData["Title"] = "Группы животных";
+}
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2>Группы животных</h2>
+                </div>
+                <div class="col-sm-4">
+                    <div class="btn-toolbar">
+                        @if (!@User.IsInRole("Оператор"))
+                        {
+                            <a class="btn btn-block btn-primary" href="/AnimalGroup/Create">Добавить</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card p-3 mb-3 filter-panel">
+            @using (Html.BeginForm("Index", "AnimalGroup", FormMethod.Get))
+            {
+                @Html.TextBox("filter", null, new { @class="form-control filter-input", @placeholder = "Название" })
+                <input type="submit" value="Поиск" class="btn btn-secondary filter-input" />
+            }
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.ActionLink("Код", "Index", new { sortOrder = ViewBag.CodeSortParam })</th>
+                    <th>@Html.ActionLink("Название", "Index", new { sortOrder = ViewBag.NameSortParam })</th>
+                    <th style="width: 80px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.Code</td>
+                        <td>@p.Name</td>
+                        <td>
+                            @if (!@User.IsInRole("Оператор"))
+                            {
+                                var deleteModal = "deleteModal" + @p.Id;
+                                <a href="@Url.Action("Edit", "AnimalGroup", new {id=p.Id})" class="table-button"><i class="fa fa-pencil"></i></a>
+                                <span>|</span>
+                                <a href="#" data-target="#@deleteModal" data-toggle="modal" data-id="@p.Id" class="table-button"><i class="fa fa-trash table-button"></i></a>
+                                using (Html.BeginForm("Delete", "AnimalGroup", new { id = @p.Id }))
+                                {
+                                    <div class="confirm-delete" id="@deleteModal">
+                                        <partial name="_ConfirmDeletePartial" />
+                                    </div>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <nav>
+        <partial name="_PaginationPartial" />
+    </nav>
+</div>

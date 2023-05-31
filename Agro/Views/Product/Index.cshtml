@@ -1,0 +1,73 @@
+﻿@model Agro.Pagination.PaginatedList<ProductViewModel>
+@{
+    ViewData["Title"] = "Продукты";
+}
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2>Продукты</h2>
+                </div>
+                <div class="col-sm-4">
+                    <div class="btn-toolbar">
+                        @if (!@User.IsInRole("Оператор"))
+                        {
+                            <a class="btn btn-block btn-primary" href="/Product/Create">Добавить</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card p-3 mb-3 filter-panel">
+            @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+            {
+                @Html.DropDownList("animalGroupId", new SelectList(ViewBag.AnimalGroups, "Id", "Name"),
+                    "Все группы животных", new { @class="form-select filter-input" })
+                @Html.TextBox("filter", null, new { @class="form-control filter-input", @placeholder = "Номер или название" })
+                <input type="submit" value="Поиск" class="btn btn-secondary filter-input" />
+            }
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.ActionLink("Номер", "Index", new { sortOrder = ViewBag.NumberSortParam })</th>
+                    <th>@Html.ActionLink("Сокращенное название", "Index", new { sortOrder = ViewBag.ShortNameSortParam })</th>
+                    <th>Полное название</th>
+                    <th>Группа животных</th>
+                    <th style="width: 80px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.Number</td>
+                        <td>@p.ShortName</td>
+                        <td>@p.Name</td>
+                        <td>@p.AnimalGroup?.Name</td>
+                        <td>
+                            @if (!@User.IsInRole("Оператор"))
+                            {
+                                var deleteModal = "deleteModal" + @p.Id;
+                                <a href="@Url.Action("Edit", "Product", new {id=p.Id})" class="table-button"><i class="fa fa-pencil"></i></a>
+                                <span>|</span>
+                                <a href="#" data-target="#@deleteModal" data-toggle="modal" data-id="@p.Id" class="table-button"><i class="fa fa-trash table-button"></i></a>
+                                using (Html.BeginForm("Delete", "Product", new { id = @p.Id }))
+                                {
+                                    <div class="confirm-delete" id="@deleteModal">
+                                        <partial name="_ConfirmDeletePartial" />
+                                    </div>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <nav>
+        <partial name="_PaginationPartial" />
+    </nav>
+</div>

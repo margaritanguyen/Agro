@@ -1,0 +1,82 @@
+﻿@model SiloViewModel
+@{
+    ViewData["Title"] = "Изменить сырье";
+}
+
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-7">
+            <div class="mb-4">
+                <h3>Изменить сырье</h3>
+            </div>
+            <form asp-action="Edit" asp-controller="Silo">
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Code, "Код")
+                    @Html.TextBoxFor(m=>m.Code, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.Code)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Number, "Номер")
+                    @Html.TextBoxFor(m=>m.Number, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.Number)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.AreaId, "Участок")
+                    @Html.DropDownListFor(m=>m.AreaId, new SelectList(ViewBag.Areas, "Id", "Name"),
+                    new { @class="form-select" })
+                    @Html.ValidationMessageFor(m=>m.AreaId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.SiloTypeId, "Тип сырья")
+                    @Html.DropDownListFor(m=>m.SiloTypeId, new SelectList(ViewBag.SiloTypes, "Id", "Name"),
+                    new { @class="form-select" })
+                    @Html.ValidationMessageFor(m=>m.SiloTypeId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.ResourceId, "Сырье")
+                    @Html.DropDownListFor(m=>m.ResourceId, new SelectList(ViewBag.Resources, "Id", "Name"),
+                    "Пусто", new { @class="form-select" })
+                    @Html.ValidationMessageFor(m=>m.ResourceId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.PreviousResourceId, "Предыдущее сырье")
+                    @Html.DropDownListFor(m=>m.PreviousResourceId, new SelectList(ViewBag.Resources, "Id", "Name"),
+                    "Пусто", new { @class="form-select" })
+                    @Html.ValidationMessageFor(m=>m.PreviousResourceId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.RealStock, "Текущий вес, кг")
+                    @Html.TextBoxFor(m=>m.RealStock, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.RealStock)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.MaxCapacity, "Максимальная вместимость, кг")
+                    @Html.TextBoxFor(m=>m.MaxCapacity, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.MaxCapacity)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.FreeFall, "Вес падающего столба, кг")
+                    @Html.TextBoxFor(m=>m.FreeFall, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.FreeFall)
+                </div>
+                <div class="form-group">
+                @Html.LabelFor(m=>m.DefaultBalanceId, "Весы по умолчанию")
+                @Html.DropDownListFor(m=>m.DefaultBalanceId, new SelectList(ViewBag.Balances, "Id", "Name"),
+                "Не выбраны", new { @class="form-select" })
+                @Html.ValidationMessageFor(m=>m.DefaultBalanceId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Comment, "Комментарий")
+                    @Html.TextAreaFor(m=>m.Comment, 3, 1, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.Comment)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.LastChange, "Последнее изменение")
+                    @Html.TextBoxFor(m=>m.LastChange, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.LastChange)
+                </div>
+                <button type="submit" class="btn btn-block btn-primary">Изменить</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿<div class="navbar-user">
+    @if (@User.Identity.IsAuthenticated)
+    {
+        <span class="user-name" >@User.Identity?.Name</span>
+        <a class="btn-login" href="/User/Logout">Выйти</a>
+    }
+    else
+    {
+        <a class="btn-login" href="/User/Login">Войти</a>
+    }
+</div>

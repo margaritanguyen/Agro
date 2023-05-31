@@ -1,0 +1,80 @@
+﻿@model Agro.Pagination.PaginatedList<SiloViewModel>
+@{
+    ViewData["Title"] = "Сырье";
+}
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2>Сырье</h2>
+                </div>
+                <div class="col-sm-4">
+                    <div class="btn-toolbar">
+                        @if (!@User.IsInRole("Оператор"))
+                        {
+                            <a class="btn btn-block btn-primary" href="/Silo/Create">Добавить</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card p-3 mb-3 filter-panel">
+            @using (Html.BeginForm("Index", "Silo", FormMethod.Get))
+            {
+                @Html.DropDownList("siloTypeId", new SelectList(ViewBag.SiloTypes, "Id", "Name"),
+                    "Все типы силосов", new { @class="form-select filter-input" })
+                @Html.DropDownList("areaId", new SelectList(ViewBag.Areas, "Id", "Name"),
+                    "Все участки", new { @class="form-select filter-input" })
+                @Html.TextBox("filter", null, new { @class="form-control filter-input", @placeholder = "Номер" })
+                @Html.TextBox("resource", null, new { @class="form-control filter-input", @placeholder = "Сырье" })
+                <input type="submit" value="Поиск" class="btn btn-secondary filter-input" />
+            }
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.ActionLink("Код", "Index", new { sortOrder = ViewBag.CodeSortParam })</th>
+                    <th>@Html.ActionLink("Номер", "Index", new { sortOrder = ViewBag.NumberSortParam })</th>
+                    <th>Сырье</th>
+                    <th>Текущий вес, кг</th>
+                    <th>Тип силоса</th>
+                    <th>Участок</th>
+                    <th style="width: 80px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.Code</td>
+                        <td>@p.Number</td>
+                        <td>@p.Resource?.ShortName</td>
+                        <td>@p.RealStock</td>
+                        <td>@p.SiloType?.Name</td>
+                        <td>@p.Area?.Name</td>
+                        <td>
+                            @if (!@User.IsInRole("Оператор"))
+                            {
+                                var deleteModal = "deleteModal" + @p.Id;
+                                <a href="@Url.Action("Edit", "Silo", new {id=p.Id})" class="table-button"><i class="fa fa-pencil"></i></a>
+                                <span>|</span>
+                                <a href="#" data-target="#@deleteModal" data-toggle="modal" data-id="@p.Id" class="table-button"><i class="fa fa-trash table-button"></i></a>
+                                using (Html.BeginForm("Delete", "Silo", new { id = @p.Id }))
+                                {
+                                    <div class="confirm-delete" id="@deleteModal">
+                                        <partial name="_ConfirmDeletePartial" />
+                                    </div>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <nav>
+        <partial name="_PaginationPartial" />
+    </nav>
+</div>
