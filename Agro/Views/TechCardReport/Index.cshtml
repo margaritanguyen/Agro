@@ -1,0 +1,56 @@
+﻿@model IList<TechCardReportViewModel>
+@{
+    ViewData["Title"] = "Технологическая карта";
+}
+<div class="container">
+    <div class="table-wrapper" id="techCardTable">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2>Технологическая карта</h2>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h6>Номер заказа: @Model.Max(x => x.ManufNr)</h6>
+            <h6>Продукт: @Model.Max(x => x.ProductName)</h6>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Сырье</th>
+                    <th>Заданный вес, кг</th>
+                    <th>Отдозированный вес, кг</th>
+                    <th>Отклонение, кг</th>
+                    <th>Начало дозирования</th>
+                    <th>Конец дозирования</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.Num</td>
+                        <td>@p.ResourceName</td>
+                        <td>@p.ReqWeight.ToString("F2")</td>
+                        <td>@p.RealWeight.ToString("F2")</td>
+                        <td>@((p.RealWeight - p.ReqWeight).ToString("F2"))</td>
+                        <td>@p.StartTime</td>
+                        <td>@p.EndTime</td>
+                    </tr>
+                }
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>@Model.Sum(x => x.ReqWeight).ToString("F2")</th>
+                    <th>@Model.Sum(x => x.RealWeight).ToString("F2")</th>
+                    <th>@Model.Sum(x => (x.RealWeight - x.ReqWeight)).ToString("F2")</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

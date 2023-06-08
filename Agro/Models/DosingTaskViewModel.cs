@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Agro.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Agro.DataAccess.Entities
+namespace Agro.Models
 {
-    public class DosingTask
+    public class DosingTaskViewModel
     {
         public int Id { get; set; }
 
@@ -22,9 +23,11 @@ namespace Agro.DataAccess.Entities
         public int BatchCount { get; set; }
 
         [Required]
+        [DefaultValue(0)]
         public int InProcessBatchCount { get; set; }
 
         [Required]
+        [DefaultValue(0)]
         public int ReadyBatchCount { get; set; }
 
         public Silo? SiloOne { get; set; }
@@ -35,12 +38,12 @@ namespace Agro.DataAccess.Entities
 
         public DateTime StartTime { get; set; }
 
-        public DateTime? EndTime { get; set; }
+        public DateTime EndTime { get; set; }
 
-        public ProductRecipe ProductRecipe { get; set; }
+        public ProductRecipe? ProductRecipe { get; set; }
         public int ProductRecipeId { get; set; }
 
-        public TaskMessage TaskMessage { get; set; }
+        public TaskMessage? TaskMessage { get; set; }
         public int TaskMessageId { get; set; }
 
         [MaxLength(64)]
@@ -51,7 +54,7 @@ namespace Agro.DataAccess.Entities
         [MaxLength(64)]
         [Unicode]
         [AllowNull]
-        public string? ClientName { get; set; }
+        public string ClientName { get; set; }
 
         [Required]
         [DefaultValue(false)]

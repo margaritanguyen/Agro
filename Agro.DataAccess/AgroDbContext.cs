@@ -57,6 +57,8 @@ namespace Agro.DataAccess
                 new ArchiveMessage { Id = 7, Code = 6, Message = ">A>T FAIL" }
             );
 
+            modelBuilder.Entity<BatchReport>() .ToView("BatchReportView").HasNoKey();
+            modelBuilder.Entity<TechCardReport>().ToView("TechCardReportView").HasNoKey();
         }
 
         public DbSet<UserRole> UserRoles { get; set; }
@@ -76,5 +78,7 @@ namespace Agro.DataAccess
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
         public DbSet<DosingTask> DosingTasks { get; set; }
         public DbSet<ArchiveMessage> ArchiveMessages { get; set; }
+
+        public DbSet<BatchReport> BatchReports { get; set; }
     }
 }

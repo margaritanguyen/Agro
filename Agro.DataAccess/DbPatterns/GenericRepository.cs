@@ -19,6 +19,13 @@ namespace Agro.DataAccess.DbPatterns
             return t;
         }
 
+        public async Task<IList<T>> CreateRange(IList<T> t)
+        {
+            _context.Set<T>().AddRange(t);
+            await _context.SaveChangesAsync();
+            return t;
+        }
+
         public async Task Delete(T t)
         {
             _context.Set<T>().Remove(t);

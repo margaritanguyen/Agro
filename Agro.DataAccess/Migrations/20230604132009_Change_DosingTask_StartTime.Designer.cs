@@ -4,6 +4,7 @@ using Agro.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Agro.DataAccess.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    partial class AgroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230604132009_Change_DosingTask_StartTime")]
+    partial class Change_DosingTask_StartTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,6 +228,7 @@ namespace Agro.DataAccess.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("ClientName")
+                        .IsRequired()
                         .HasMaxLength(64)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(64)");
@@ -261,7 +265,7 @@ namespace Agro.DataAccess.Migrations
                     b.Property<int?>("SiloTwoId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<DateTime?>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("TaskMessageId")
@@ -740,7 +744,7 @@ namespace Agro.DataAccess.Migrations
                         {
                             Id = 1,
                             FullName = "Администратор",
-                            PasswordHash = "$2a$11$6YRlJU2k.L6G9yVUo6zmg.yQ.G5e5wW7pSGPuUX9sMpN8acxk9jSG",
+                            PasswordHash = "$2a$11$ML9TS5s7FcF7s3Y0e6zC2OWqijg21.xuKRbqGhs3D4FmEsrHpA98S",
                             UserName = "admin",
                             UserRoleId = 1
                         });

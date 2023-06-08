@@ -12,16 +12,22 @@ namespace Agro.AutoMapper
             CreateMap<ArchiveMessage, ArchiveMessageViewModel>().ReverseMap();
             CreateMap<Area, AreaViewModel>().ReverseMap();
             CreateMap<Balance, BalanceViewModel>().ReverseMap();
+            CreateMap<DosingTask, DosingTaskViewModel>().ReverseMap();
+            CreateMap<DosingTask, DosingTaskCreateViewModel>().ReverseMap();
             CreateMap<DosingType, DosingTypeViewModel>().ReverseMap();
             CreateMap<ProductRecipe,ProductRecipeViewModel>().ReverseMap();
             CreateMap<Product, ProductViewModel>().ReverseMap();
             CreateMap<Product, ProductEditViewModel>().ReverseMap();
+            CreateMap<RecipeIngredient, RecipeIngredientViewModel>().ReverseMap();
             CreateMap<ResourceType, ResourceTypeViewModel>().ReverseMap();
             CreateMap<Resource, ResourceViewModel>().ReverseMap();
             CreateMap<SiloType, SiloTypeViewModel>().ReverseMap();
             CreateMap<Silo, SiloViewModel>().ReverseMap();
             CreateMap<TaskMessage, TaskMessageViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
+
+            CreateMap<BatchReport, BatchReportViewModel>().ReverseMap();
+            CreateMap<TechCardReport, TechCardReportViewModel>().ReverseMap();
         }
     }
 }

@@ -4,18 +4,20 @@
 }
 
 <div class="container">
-    @Html.ValidationSummary()
-    <div class="row align-items-center justify-content-center">
+    <div class="row">
+        <div class="mb-4">
+            <h3>Изменить рецепт</h3>
+        </div>
         <div class="col-md-7">
-            <div class="mb-4">
-                <h3>Изменить рецепт</h3>
-            </div>
             <form asp-action="Edit" asp-controller="ProductRecipe">
-                <div class="form-group">
+                <div class="form-group" hidden="hidden">
                     @Html.LabelFor(m=>m.ProductId, "Продукт")
-                    @Html.DropDownListFor(m=>m.ProductId, new SelectList(ViewBag.Products, "Id", "ShortName"),
-                    new { @class="form-control", @readonly="readonly" })
+                    @Html.TextBoxFor(m=>m.ProductId, null, new { @class="form-control" })
                     @Html.ValidationMessageFor(m=>m.ProductId)
+                </div>
+                <div class="form-group">
+                    <label>Продукт</label>
+                    <input class="form-control" readonly="readonly" value="@(Model.Product.Number + " " + Model.Product.ShortName)" />
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m=>m.Version, "Версия")
@@ -39,6 +41,56 @@
                 </div>
                 <button type="submit" class="btn btn-block btn-primary">Сохранить</button>
             </form>
+        </div>
+        <div class="col-md-5">
+            @if (!@User.IsInRole("Оператор"))
+            {
+                <a class="btn btn-block btn-primary" href="/RecipeIngredient/Create?productRecipeId=@Model.Id">Добавить</a>
+            }
+            <div class="table-wrapper">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Сырье</th>
+                            <th>Содержание, %</th>
+                            <th>Приоритет</th>
+                            <th style="width: 80px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model.RecipeIngredients)
+                        {
+                            <tr>
+                                <td>@p.Resource?.ShortName</td>
+                                <td>@p.ResourceContent</td>
+                                <td>@p.DosingPriority</td>
+                                <td>
+                                    @if (!@User.IsInRole("Оператор"))
+                                    {
+                                        var deleteModal = "deleteModal" + @p.Id;
+                                        <a href="@Url.Action("Edit", "RecipeIngredient", new {id=p.Id})" class="table-button"><i class="fa fa-pencil"></i></a>
+                                        <span>|</span>
+                                        <a href="#" data-target="#@deleteModal" data-toggle="modal" data-id="@p.Id" class="table-button"><i class="fa fa-trash table-button"></i></a>
+                                        using (Html.BeginForm("Delete", "RecipeIngredient", new { id = @p.Id }))
+                                        {
+                                            <div class="confirm-delete" id="@deleteModal">
+                                                <partial name="_ConfirmDeletePartial" />
+                                            </div>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <th>Всего:</th>
+                            <th>@Model.RecipeIngredients.Sum(x => x.ResourceContent)</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -27,5 +27,7 @@ namespace Agro.Models
 
         [Required]
         public DateTime LastChange { get; set; }
+       
+        public IList<RecipeIngredient>? RecipeIngredients { get; set; }
     }
 }

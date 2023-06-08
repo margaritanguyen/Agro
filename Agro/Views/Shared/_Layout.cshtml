@@ -61,8 +61,17 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/Home/Index">Задания</a>
+                        <a href="/DosingTask/Index">Задания</a>
                     </li>
+                    <li>
+                        <a href="#reportSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Отчеты</a>
+                        <ul class="collapse list-unstyled" id="reportSubMenu">
+                            <li>
+                                <a href="/BatchReport/Index">О дозировании</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     @if (@User.IsInRole("Администратор"))
                     {
                         <li>

@@ -1,0 +1,52 @@
+﻿@model DosingTaskCreateViewModel
+@{
+    ViewData["Title"] = "Изменить задание";
+}
+
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-7">
+            <div class="mb-4">
+                <h3>Изменить задание</h3>
+                @Html.ValidationSummary()
+            </div>
+            <form asp-action="Edit" asp-controller="DosingTask">
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.ProductId, "Продукт")
+                    @Html.DropDownListFor(m=>m.ProductId, new SelectList(ViewBag.Products, "Id", "Name"), "Выберите продукт",
+                    new { @class="form-select", 
+                    onchange = "document.location.href = '/DosingTask/Create?productId=' + this.options[this.selectedIndex].value;" })
+                    @Html.ValidationMessageFor(m=>m.ProductId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.ProductRecipeId, "Рецепт")
+                    @Html.DropDownListFor(m=>m.ProductRecipeId, new SelectList(ViewBag.ProductRecipes, "Id", "Version"),
+                    new { @class="form-select",
+                    onchange = "document.location.href = '/DosingTask/Create?productId=' + this.options[this.selectedIndex].value + '&productRecipeId=' + ;" })
+                    @Html.ValidationMessageFor(m=>m.ProductRecipeId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.BatchSize, "Размер порции, кг")
+                    @Html.TextBoxFor(m=>m.BatchSize, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.BatchSize)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.BatchCount, "Количество порций")
+                    @Html.TextBoxFor(m=>m.BatchCount, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.BatchCount)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.ClientName, "Клиент")
+                    @Html.TextBoxFor(m=>m.ClientName, null, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.ClientName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Comment, "Комментарий")
+                    @Html.TextAreaFor(m=>m.Comment, 3, 1, new { @class="form-control" })
+                    @Html.ValidationMessageFor(m=>m.Comment)
+                </div>
+                <button type="submit" class="btn btn-block btn-primary">Изменить</button>
+            </form>
+        </div>
+    </div>
+</div>

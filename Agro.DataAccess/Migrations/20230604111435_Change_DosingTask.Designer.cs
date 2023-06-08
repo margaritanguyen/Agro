@@ -4,6 +4,7 @@ using Agro.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Agro.DataAccess.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    partial class AgroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230604111435_Change_DosingTask")]
+    partial class Change_DosingTask
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,6 +228,7 @@ namespace Agro.DataAccess.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("ClientName")
+                        .IsRequired()
                         .HasMaxLength(64)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(64)");
@@ -234,7 +238,7 @@ namespace Agro.DataAccess.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<DateTime?>("EndTime")
+                    b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("InProcessBatchCount")
@@ -280,7 +284,7 @@ namespace Agro.DataAccess.Migrations
                     b.ToTable("DosingTasks");
                 });
 
-            modelBuilder.Entity("Agro.DataAccess.Entities.DosingType", b =>
+            modelBuilder.Entity("Agro.DataAccess.Entities.DosingTask", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -302,7 +306,7 @@ namespace Agro.DataAccess.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.ToTable("DosingTypes");
+                    b.ToTable("DosingTasks");
 
                     b.HasData(
                         new
@@ -466,7 +470,7 @@ namespace Agro.DataAccess.Migrations
                     b.Property<float>("Density")
                         .HasColumnType("real");
 
-                    b.Property<int>("DosingTypeId")
+                    b.Property<int>("DosingTaskId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LastChange")
@@ -498,7 +502,7 @@ namespace Agro.DataAccess.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.HasIndex("DosingTypeId");
+                    b.HasIndex("DosingTaskId");
 
                     b.HasIndex("ResourceTypeId");
 
@@ -740,7 +744,7 @@ namespace Agro.DataAccess.Migrations
                         {
                             Id = 1,
                             FullName = "Администратор",
-                            PasswordHash = "$2a$11$6YRlJU2k.L6G9yVUo6zmg.yQ.G5e5wW7pSGPuUX9sMpN8acxk9jSG",
+                            PasswordHash = "$2a$11$QinOoPy3Kd0v1qU..hUliubyOb5oMBgED4kPWizMuw3sKiPdSnDDi",
                             UserName = "admin",
                             UserRoleId = 1
                         });
@@ -865,9 +869,9 @@ namespace Agro.DataAccess.Migrations
 
             modelBuilder.Entity("Agro.DataAccess.Entities.Resource", b =>
                 {
-                    b.HasOne("Agro.DataAccess.Entities.DosingType", "DosingType")
+                    b.HasOne("Agro.DataAccess.Entities.DosingTask", "DosingTask")
                         .WithMany("Resources")
-                        .HasForeignKey("DosingTypeId")
+                        .HasForeignKey("DosingTaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -875,7 +879,7 @@ namespace Agro.DataAccess.Migrations
                         .WithMany("Resources")
                         .HasForeignKey("ResourceTypeId");
 
-                    b.Navigation("DosingType");
+                    b.Navigation("DosingTask");
 
                     b.Navigation("ResourceType");
                 });
@@ -940,7 +944,7 @@ namespace Agro.DataAccess.Migrations
                     b.Navigation("Silos");
                 });
 
-            modelBuilder.Entity("Agro.DataAccess.Entities.DosingType", b =>
+            modelBuilder.Entity("Agro.DataAccess.Entities.DosingTask", b =>
                 {
                     b.Navigation("Resources");
                 });

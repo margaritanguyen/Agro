@@ -30,14 +30,19 @@ namespace Agro
             builder.Services.AddTransient<IArchiveMessageService, ArchiveMessageService>();
             builder.Services.AddTransient<IAreaService, AreaService>();
             builder.Services.AddTransient<IBalanceService, BalanceService>();
+            builder.Services.AddTransient<IDosingTaskService, DosingTaskService>();
             builder.Services.AddTransient<IDosingTypeService, DosingTypeService>();
             builder.Services.AddTransient<IProductRecipeService, ProductRecipeService>();
             builder.Services.AddTransient<IProductService, ProductService>();
+            builder.Services.AddTransient<IRecipeIngredientService, RecipeIngredientService>();
             builder.Services.AddTransient<IResourceTypeService, ResourceTypeService>();
             builder.Services.AddTransient<IResourceService, ResourceService>();
             builder.Services.AddTransient<ISiloTypeService, SiloTypeService>();
             builder.Services.AddTransient<ISiloService, SiloService>();
             builder.Services.AddTransient<ITaskMessageService, TaskMessageService>();
+
+            builder.Services.AddTransient<IBatchReportService, BatchReportService>();
+            builder.Services.AddTransient<ITechCardReportService, TechCardReportService>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions

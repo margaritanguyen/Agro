@@ -1,0 +1,70 @@
+﻿@model Agro.Pagination.PaginatedList<DosingTaskViewModel>
+@{
+    ViewData["Title"] = "Задания";
+}
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2>Задания</h2>
+                </div>
+                <div class="col-sm-4">
+                    <div class="btn-toolbar">
+                        <a class="btn btn-block btn-primary" href="/DosingTask/Create">Добавить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card p-3 mb-3 filter-panel">
+            @using (Html.BeginForm("Index", "DosingTask", FormMethod.Get))
+            {
+                @Html.TextBox("filter", null, new { @class="form-control filter-input", @placeholder = "Название" })
+                <input type="submit" value="Поиск" class="btn btn-secondary filter-input" />
+            }
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Статус</th>
+                    <th>Номер заказа</th>
+                    <th>Продукт</th>
+                    <th>Кол-во порций</th>
+                    <th>Размер порции, кг</th>
+                    <th style="width: 80px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.TaskMessage.Message</td>
+                        <td>@p.ManufNr</td>
+                        <td>@p.ProductRecipe?.Product?.ShortName</td>
+                        <td>@p.BatchCount</td>
+                        <td>@p.BatchSize</td>
+                        <td>
+                            @if (@p.TaskMessage?.Code == 1)
+                            {
+                                var deleteModal = "deleteModal" + @p.Id;
+                                <a href="@Url.Action("Edit", "DosingTask", new {id=p.Id})" class="table-button"><i class="fa fa-pencil"></i></a>
+                                <span>|</span>
+                                <a href="#" data-target="#@deleteModal" data-toggle="modal" data-id="@p.Id" class="table-button"><i class="fa fa-trash table-button"></i></a>
+                                using (Html.BeginForm("Delete", "DosingTask", new { id = @p.Id }))
+                                {
+                                    <div class="confirm-delete" id="@deleteModal">
+                                        <partial name="_ConfirmDeletePartial" />
+                                    </div>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <nav>
+        <partial name="_PaginationPartial" />
+    </nav>
+</div>

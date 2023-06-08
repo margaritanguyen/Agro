@@ -29,5 +29,9 @@ namespace Agro.DataAccess.DbPatterns
         public IGenericRepository<ProductRecipe> ProductRecipes => new GenericRepository<ProductRecipe>(_context);
         public IGenericRepository<RecipeIngredient> RecipeIngredients => new GenericRepository<RecipeIngredient>(_context);
         public IGenericRepository<DosingTask> DosingTasks => new GenericRepository<DosingTask>(_context);
+
+        public IGenericRepository<BatchReport> BatchReports => new GenericRepository<BatchReport>(_context);
+        public IGenericRepository<TechCardReport> TechCardReports => new GenericRepository<TechCardReport>(_context);
+
     }
 }

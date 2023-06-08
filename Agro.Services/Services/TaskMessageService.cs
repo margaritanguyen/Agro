@@ -21,6 +21,13 @@ namespace Agro.Services.Services
             return await UnitOfWork.TaskMessages.Get(id);
         }
 
+        public async Task<TaskMessage> GetTaskMessageByCode(int code)
+        {
+            IList<TaskMessage> taskMessages = await UnitOfWork.TaskMessages.GetAll();
+            var taskMessage = taskMessages.Where(x => x.Code == code).FirstOrDefault();
+            return taskMessage;
+        }
+
         public async Task<IList<TaskMessage>> GetAllTaskMessages()
         {
             IList<TaskMessage> taskMessages = await UnitOfWork.TaskMessages.GetAll();

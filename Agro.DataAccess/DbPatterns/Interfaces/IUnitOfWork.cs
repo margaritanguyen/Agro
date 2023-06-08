@@ -22,5 +22,9 @@ namespace Agro.DataAccess.DbPatterns.Interfaces
         IGenericRepository<DosingTask> DosingTasks { get; }
         IGenericRepository<ArchiveMessage> ArchiveMessages { get; }
 
+        IGenericRepository<BatchReport> BatchReports { get; }
+        IGenericRepository<TechCardReport> TechCardReports { get; }
+
+
     }
 }

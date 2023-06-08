@@ -6,6 +6,7 @@ namespace Agro.Services.Interfaces
     {
         Task<DosingTask> CreateDosingTask(DosingTask dosingTask);
         Task<DosingTask> GetDosingTask(int id);
+        Task<IList<DosingTask>> GetAllDosingTasks();
         Task UpdateDosingTask(DosingTask dosingTask);
         Task DeleteDosingTask(DosingTask dosingTask);
     }

@@ -18,8 +18,13 @@ namespace Agro.Services.Services
 
         public async Task<DosingTask> GetDosingTask(int id)
         {
+            return await UnitOfWork.DosingTasks.Get(id);
+        }
+
+        public async Task<IList<DosingTask>> GetAllDosingTasks()
+        {
             IList<DosingTask> dosingTasks = await UnitOfWork.DosingTasks.GetAll();
-            return dosingTasks.FirstOrDefault(x => x.Id == id);
+            return dosingTasks;
         }
 
         public async Task UpdateDosingTask(DosingTask dosingTask)

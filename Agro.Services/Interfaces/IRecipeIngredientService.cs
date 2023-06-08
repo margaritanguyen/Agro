@@ -4,10 +4,11 @@ namespace Agro.Services.Interfaces
 {
     public interface IRecipeIngredientService
     {
-        Task<RecipeIngredient> CreateRecipeIngredient(RecipeIngredient product);
+        Task<RecipeIngredient> CreateRecipeIngredient(RecipeIngredient recipeIngredient);
+        Task<IList<RecipeIngredient>> CreateRangeRecipeIngredient(IList<RecipeIngredient> recipeIngredients);
         Task<RecipeIngredient> GetRecipeIngredient(int id);
-        Task<IList<RecipeIngredient>> GetAllRecipeIngredients(int recipeId);
-        Task UpdateRecipeIngredient(RecipeIngredient product);
-        Task DeleteRecipeIngredient(RecipeIngredient product);
+        Task<IList<RecipeIngredient>> GetAllRecipeIngredients(int productRecipeId);
+        Task UpdateRecipeIngredient(RecipeIngredient recipeIngredient);
+        Task DeleteRecipeIngredient(RecipeIngredient recipeIngredient);
     }
 }

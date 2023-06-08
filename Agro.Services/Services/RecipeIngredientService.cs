@@ -11,9 +11,14 @@ namespace Agro.Services.Services
 
         }
 
-        public async Task<RecipeIngredient> CreateRecipeIngredient(RecipeIngredient product)
+        public async Task<RecipeIngredient> CreateRecipeIngredient(RecipeIngredient recipeIngredient)
         {
-            return await UnitOfWork.RecipeIngredients.Create(product);
+            return await UnitOfWork.RecipeIngredients.Create(recipeIngredient);
+        }
+
+        public async Task<IList<RecipeIngredient>> CreateRangeRecipeIngredient(IList<RecipeIngredient> recipeIngredients)
+        {
+            return await UnitOfWork.RecipeIngredients.CreateRange(recipeIngredients);
         }
 
         public async Task<RecipeIngredient> GetRecipeIngredient(int id)
@@ -27,14 +32,14 @@ namespace Agro.Services.Services
             return products.Where(x => x.ProductRecipeId == productRecipeId).ToList();
         }
 
-        public async Task UpdateRecipeIngredient(RecipeIngredient product)
+        public async Task UpdateRecipeIngredient(RecipeIngredient recipeIngredient)
         {
-            await UnitOfWork.RecipeIngredients.Update(product);
+            await UnitOfWork.RecipeIngredients.Update(recipeIngredient);
         }
 
-        public async Task DeleteRecipeIngredient(RecipeIngredient product)
+        public async Task DeleteRecipeIngredient(RecipeIngredient recipeIngredient)
         {
-            await UnitOfWork.RecipeIngredients.Delete(product);
+            await UnitOfWork.RecipeIngredients.Delete(recipeIngredient);
         }
     }
 }
