@@ -1,0 +1,81 @@
+﻿@model ProductRecipeImportViewModel
+@{
+    ViewData["Title"] = "Импорт рецепта";
+}
+
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-7">
+            <div class="mb-4">
+                <h3>Импорт рецепта</h3>
+            </div>
+            <form asp-action="Import" asp-controller="ProductRecipeImport" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file"  name="file" class="form-control"/> 
+                </div>
+                <button type="submit" class="btn btn-block btn-primary">Загрузить</button>
+            </form>
+            @if (Model != null)
+            {
+                <label>Продукт</label>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Номер</th>
+                            <th>Сокращенное название</th>
+                            <th>Полное название</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model.Products)
+                        {
+                            <tr>
+                                <td>@p.Number</td>
+                                <td>@p.ShortName</td>
+                                <td>@p.Name</td>
+                            </tr>
+                        }
+                    </tbody>
+            </table>
+            <label>Рецепт</label>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Версия</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model.ProductRecipes)
+                        {
+                            <tr>
+                                <td>@p.Version</td>
+                                <td><a href="@Url.Action("Edit", "ProductRecipe", new {id=p.Id})" class="table-button">Перейти</a></td>
+                            </tr>
+                        }
+                    </tbody>
+            </table>
+                <label>Ингредиенты</label>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Сырье</th>
+                            <th>Активность</th>
+                            <th>Содержание, %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model.RecipeIngredients)
+                        {
+                            <tr>
+                                <td>@p.Resource?.ShortName</td>
+                                <td>@p.Resource?.Activity</td>
+                                <td>@p.ResourceContent</td>
+                            </tr>
+                        }
+                    </tbody>
+            </table>
+            }
+        </div>
+    </div>
+</div>

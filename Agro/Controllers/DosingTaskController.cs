@@ -29,32 +29,13 @@ namespace Agro.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Index(int? pageNumber, string sortOrder, string filter)
+        public async Task<IActionResult> Index(int? pageNumber, string filter)
         {
             var taskMessages = await _taskMessageService.GetAllTaskMessages();
             var dosingTasks = await _dosingTaskService.GetAllDosingTasks();
 
             if (filter != null)
                 dosingTasks = dosingTasks.Where(x => x.ManufNr.ToString().Contains(filter.ToLower())).ToList();
-
-            //ViewBag.CodeSortParam = String.IsNullOrEmpty(sortOrder) ? "code_desc" : "";
-            //ViewBag.NameSortParam = sortOrder == "name_asc" ? "name_desc" : "name_asc";
-
-            //switch (sortOrder)
-            //{
-            //    case "name_desc":
-            //        dosingTasks = dosingTasks.OrderByDescending(s => s.Name).ToList();
-            //        break;
-            //    case "name_asc":
-            //        dosingTasks = dosingTasks.OrderBy(s => s.Name).ToList();
-            //        break;
-            //    case "code_desc":
-            //        dosingTasks = dosingTasks.OrderByDescending(s => s.Code).ToList();
-            //        break;
-            //    default:
-            //        dosingTasks = dosingTasks.OrderBy(s => s.Code).ToList();
-            //        break;
-            //}
 
             var model = _mapper.Map<IEnumerable<DosingTask>, IList<DosingTaskViewModel>>(dosingTasks);
             var pagedList = PaginatedList<DosingTaskViewModel>.Create(model, pageNumber ?? 1, 10);
@@ -137,13 +118,19 @@ namespace Agro.Controllers
         {
             TempData["returnUrl"] = Request.Headers["Referer"].ToString();
             var dosingTask = await _dosingTaskService.GetDosingTask(id);
-            var model = _mapper.Map<DosingTaskViewModel>(dosingTask);
+            var model = _mapper.Map<DosingTaskEditViewModel>(dosingTask);
+            var productRecipe = await _productRecipeService.GetProductRecipe(dosingTask.ProductRecipeId);
+            model.ProductId = productRecipe.ProductId;
+            var products = await _productService.GetAllProducts();
+            ViewBag.Products = products;
+            var productRecipes = await _productRecipeService.GetAllProductRecipes(productRecipe.ProductId);
+            ViewBag.ProductRecipes = productRecipes;
             return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(DosingTaskViewModel model)
+        public async Task<IActionResult> Edit(DosingTaskEditViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -152,6 +139,10 @@ namespace Agro.Controllers
                 return Redirect(TempData["returnUrl"].ToString());
             }
 
+            var products = await _productService.GetAllProducts();
+            ViewBag.Products = products;
+            var productRecipes = await _productRecipeService.GetAllProductRecipes(model.ProductRecipe.ProductId);
+            ViewBag.ProductRecipes = productRecipes;
             return View(model);
         }
 

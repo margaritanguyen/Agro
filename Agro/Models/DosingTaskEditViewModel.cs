@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Agro.Models
 {
-    public class DosingTaskCreateViewModel
+    public class DosingTaskEditViewModel
     {
         public int Id { get; set; }
 
@@ -37,5 +37,12 @@ namespace Agro.Models
         public Product? Product { get; set; }
         public int? ProductId { get; set; }
 
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public int InProcessBatchCount { get; set; }
+        public int ReadyBatchCount { get; set; }
+        public int ManufNr { get; set; }
+        public int Priority { get; set; }
+        public int TaskMessageId { get; set; }
     }
 }

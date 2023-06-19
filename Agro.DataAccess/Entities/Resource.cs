@@ -13,12 +13,12 @@ namespace Agro.DataAccess.Entities
         public int Code { get; set; }
 
         [Required]
-        [MaxLength(64)]
+        [MaxLength(128)]
         [Unicode]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(32)]
+        [MaxLength(64)]
         [Unicode]
         public string ShortName { get; set; }
 

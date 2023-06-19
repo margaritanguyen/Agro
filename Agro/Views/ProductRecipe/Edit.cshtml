@@ -8,7 +8,7 @@
         <div class="mb-4">
             <h3>Изменить рецепт</h3>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-6">
             <form asp-action="Edit" asp-controller="ProductRecipe">
                 <div class="form-group" hidden="hidden">
                     @Html.LabelFor(m=>m.ProductId, "Продукт")
@@ -42,7 +42,7 @@
                 <button type="submit" class="btn btn-block btn-primary">Сохранить</button>
             </form>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
             @if (!@User.IsInRole("Оператор"))
             {
                 <a class="btn btn-block btn-primary" href="/RecipeIngredient/Create?productRecipeId=@Model.Id">Добавить</a>
@@ -52,6 +52,7 @@
                     <thead>
                         <tr>
                             <th>Сырье</th>
+                            <th>Активность</th>
                             <th>Содержание, %</th>
                             <th>Приоритет</th>
                             <th style="width: 80px;"></th>
@@ -62,6 +63,7 @@
                         {
                             <tr>
                                 <td>@p.Resource?.ShortName</td>
+                                <td>@p.Resource?.Activity</td>
                                 <td>@p.ResourceContent</td>
                                 <td>@p.DosingPriority</td>
                                 <td>

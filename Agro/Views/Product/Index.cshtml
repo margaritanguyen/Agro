@@ -12,10 +12,13 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="btn-toolbar">
-                        @if (!@User.IsInRole("Оператор"))
-                        {
-                            <a class="btn btn-block btn-primary" href="/Product/Create">Добавить</a>
-                        }
+                        <div style="display: inline-grid; grid-template-columns: 1fr 1fr; grid-gap: 5px; float: right;">
+                            @if (!@User.IsInRole("Оператор"))
+                            {
+                                <a class="btn btn-primary" href="/Product/Create">Добавить</a>                        
+                                <a class="btn btn-primary" href="/ProductRecipeImport/Index">Импорт</a>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
