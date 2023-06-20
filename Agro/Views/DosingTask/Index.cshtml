@@ -20,13 +20,14 @@
         <div class="card p-3 mb-3 filter-panel">
             @using (Html.BeginForm("Index", "DosingTask", FormMethod.Get))
             {
-                @Html.TextBox("filter", null, new { @class="form-control filter-input", @placeholder = "Название" })
+                @Html.TextBox("filter", null, new { @class="form-control filter-input", @placeholder = "Номер заказа" })
                 <input type="submit" value="Поиск" class="btn btn-secondary filter-input" />
             }
         </div>
         <table class="table">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Статус</th>
                     <th>Номер заказа</th>
                     <th>Продукт</th>
@@ -39,13 +40,23 @@
                 @foreach (var p in Model)
                 {
                     <tr>
+                         <td>
+                            @if (@p.TaskMessage?.Code == 0)
+                            {
+                                <a href="@Url.Action("Start", "DosingTask", new {id=p.Id})" class="btn btn-primary">Запустить</a>
+                            }
+                            @if (@p.TaskMessage?.Code == 1)
+                            {
+                                <a href="@Url.Action("Stop", "DosingTask", new {id=p.Id})" class="btn btn-secondary">Отменить</a>
+                            }
+                        </td>
                         <td>@p.TaskMessage.Message</td>
                         <td>@p.ManufNr</td>
                         <td>@p.ProductRecipe?.Product?.ShortName</td>
                         <td>@p.BatchCount</td>
                         <td>@p.BatchSize</td>
                         <td>
-                            @if (@p.TaskMessage?.Code == 1)
+                            @if (@p.TaskMessage?.Code == 1 || @p.TaskMessage?.Code == 0)
                             {
                                 var deleteModal = "deleteModal" + @p.Id;
                                 <a href="@Url.Action("Edit", "DosingTask", new {id=p.Id})" class="table-button"><i class="fa fa-pencil"></i></a>

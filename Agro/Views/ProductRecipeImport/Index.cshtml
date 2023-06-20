@@ -11,7 +11,8 @@
             </div>
             <form asp-action="Import" asp-controller="ProductRecipeImport" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="file"  name="file" class="form-control"/> 
+                    <input type="file" name="file" class="form-control"/> 
+                    <label>@TempData["fileValidationError"]</label>
                 </div>
                 <button type="submit" class="btn btn-block btn-primary">Загрузить</button>
             </form>
@@ -50,7 +51,7 @@
                         {
                             <tr>
                                 <td>@p.Version</td>
-                                <td><a href="@Url.Action("Edit", "ProductRecipe", new {id=p.Id})" class="table-button">Перейти</a></td>
+                                <td><a href="@Url.Action("Edit", "ProductRecipe", new {id=p.Id})" class="btn btn-primary">Перейти</a></td>
                             </tr>
                         }
                     </tbody>

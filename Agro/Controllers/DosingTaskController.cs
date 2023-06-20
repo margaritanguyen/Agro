@@ -2,7 +2,6 @@
 using Agro.Models;
 using Agro.Pagination;
 using Agro.Services.Interfaces;
-using Agro.Services.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -160,5 +159,25 @@ namespace Agro.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        [Authorize]
+        public async Task<IActionResult> Start(int id)
+        {
+            var dosingTask = await _dosingTaskService.GetDosingTask(id);
+            dosingTask.TaskMessageId = 2;
+            await _dosingTaskService.UpdateDosingTask(dosingTask);
+            return RedirectToAction("Index", "DosingTask");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Stop(int id)
+        {
+            var dosingTask = await _dosingTaskService.GetDosingTask(id);
+            dosingTask.TaskMessageId = 1;
+            await _dosingTaskService.UpdateDosingTask(dosingTask);
+            return RedirectToAction("Index", "DosingTask");
+        }
+
+
     }
 }

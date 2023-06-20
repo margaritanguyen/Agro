@@ -4,11 +4,8 @@ using Agro.DataAccess.DbPatterns;
 using Agro.DataAccess.DbPatterns.Interfaces;
 using Agro.Services.Interfaces;
 using Agro.Services.Services;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 
 namespace Agro
 {
@@ -45,7 +42,7 @@ namespace Agro
             builder.Services.AddTransient<ITechCardReportService, TechCardReportService>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => //CookieAuthenticationOptions
+                .AddCookie(options =>
                 {
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
                     options.ExpireTimeSpan = new TimeSpan(0, 5, 0);

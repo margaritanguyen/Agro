@@ -33,15 +33,20 @@ namespace Agro.Controllers
         [HttpPost]
         public async Task<IActionResult> Import(IFormFile file)
         {
-            //var fileExtension = Path.GetExtension(file.FileName);
-            
             if (file == null || file.Length == 0)
             {
+                TempData["fileValidationError"] = "Ошибка загрузки файла";
+                return RedirectToAction("Index", "ProductRecipeImport");
+            }
+
+            var fileExtension = Path.GetExtension(file.FileName);
+            if (fileExtension != ".csv")
+            {
+                TempData["fileValidationError"] = "Недопустимый формат файла";
                 return RedirectToAction("Index", "ProductRecipeImport");
             }
 
             var model = await ImportProductRecipe(file);
-
             return View("Index", model);
         }
 
@@ -58,10 +63,10 @@ namespace Agro.Controllers
 
                 //product
                 var recipeDescription = lines[4].ToString();
-                var productName = recipeDescription.Substring(0, recipeDescription.IndexOf(" "));
+                var productShortName = recipeDescription.Substring(0, recipeDescription.IndexOf(" "));
                 recipeDescription = recipeDescription.Substring(recipeDescription.IndexOf(" ") + 2);
                 var productNumber = recipeDescription.Substring(0, recipeDescription.IndexOf(" "));
-                var productShortName = recipeDescription.Substring(recipeDescription.IndexOf(" ") + 1);
+                var productName = recipeDescription.Substring(recipeDescription.IndexOf(" ") + 1);
                 var product = await FindProduct(productNumber, productShortName, productName);
                 productFileImportViewModel.Products.Add(product);
 
@@ -139,7 +144,7 @@ namespace Agro.Controllers
                     {
                         Number = number,
                         Name = name,
-                        ShortName = name,
+                        ShortName = shortName,
                         LastChange = DateTime.Now
                     });
             }
@@ -175,6 +180,5 @@ namespace Agro.Controllers
 
             return productRecipe;
         }
-
     }
 }

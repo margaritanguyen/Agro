@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Agro.Services\Agro.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TaskCheck\" />
+  </ItemGroup>
+
 </Project>
