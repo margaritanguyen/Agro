@@ -10,13 +10,13 @@ namespace Agro.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public int Version { get; set; }
 
         public Product? Product { get; set; }
         public int ProductId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         [DefaultValue(true)]
         public bool IsEnabled { get; set; }
 
@@ -25,7 +25,7 @@ namespace Agro.Models
         [AllowNull]
         public string? Comment { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public DateTime LastChange { get; set; }
        
         public IList<RecipeIngredient>? RecipeIngredients { get; set; }

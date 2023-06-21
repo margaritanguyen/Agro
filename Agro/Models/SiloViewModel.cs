@@ -9,24 +9,24 @@ namespace Agro.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public int Code { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         [MaxLength(32)]
         [Unicode]
         public string Number { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float MaxCapacity { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float RealStock { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float MaxComponentSize { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float FreeFall { get; set; }
 
         public Area? Area { get; set; }
@@ -49,7 +49,7 @@ namespace Agro.Models
         [AllowNull]
         public string? Comment { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public DateTime LastChange { get; set; }
     }
 }

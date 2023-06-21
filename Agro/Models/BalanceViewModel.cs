@@ -9,27 +9,27 @@ namespace Agro.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public int Code { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         [MaxLength(64)]
         [Unicode]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float EmptyTolerance { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float WeighTolerance { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float MinWeight { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float MaxWeight { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public int MaxDosingTime { get; set; }
 
         public Area? Area { get; set; }

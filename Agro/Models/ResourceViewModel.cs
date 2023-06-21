@@ -9,32 +9,32 @@ namespace Agro.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public int Code { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         [MaxLength(64)]
         [Unicode]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         [MaxLength(32)]
         [Unicode]
         public string ShortName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float TechTolerance { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float RejectTolerance { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float AlertTolerance { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float Density { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float Activity { get; set; }
 
         public ResourceType? ResourceType { get; set; }
@@ -46,7 +46,7 @@ namespace Agro.Models
         [MaxLength(64)]
         public string? Comment { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public DateTime LastChange { get; set; }
     }
 }

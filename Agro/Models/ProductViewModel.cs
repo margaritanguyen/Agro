@@ -9,31 +9,31 @@ namespace Agro.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         [MaxLength(32)]
         [Unicode]
         public string Number { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         [MaxLength(64)]
         [Unicode]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         [MaxLength(32)]
         [Unicode]
         public string ShortName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float MinBatchSize { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public float MaxBatchSize { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public int MixTime { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public int DryMixTime { get; set; }
 
         public AnimalGroup? AnimalGroup { get; set; }
@@ -44,7 +44,7 @@ namespace Agro.Models
         [AllowNull]
         public string? Comment { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле.")]
         public DateTime LastChange { get; set; }
     }
 }
