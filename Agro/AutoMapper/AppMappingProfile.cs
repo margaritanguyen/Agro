@@ -12,6 +12,7 @@ namespace Agro.AutoMapper
             CreateMap<ArchiveMessage, ArchiveMessageViewModel>().ReverseMap();
             CreateMap<Area, AreaViewModel>().ReverseMap();
             CreateMap<Balance, BalanceViewModel>().ReverseMap();
+            CreateMap<DosingTask, CurrentStateViewModel>();
             CreateMap<DosingTask, DosingTaskViewModel>().ReverseMap();
             CreateMap<DosingTask, DosingTaskEditViewModel>().ReverseMap();
             CreateMap<DosingTask, DosingTaskCreateViewModel>().ReverseMap();

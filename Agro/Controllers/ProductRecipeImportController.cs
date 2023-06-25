@@ -154,7 +154,7 @@ namespace Agro.Controllers
 
         private async Task<ProductRecipe> FindProductRecipe(int productId)
         {
-            var productRecipes = await _productRecipeService.GetAllProductRecipes(productId);
+            var productRecipes = await _productRecipeService.GetAllProductRecipesByProductId(productId);
             var productRecipe = new ProductRecipe();
 
             if (productRecipes == null || productRecipes.Count() == 0)

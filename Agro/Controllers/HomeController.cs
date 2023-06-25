@@ -1,5 +1,7 @@
-﻿using Agro.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Agro.DataAccess.Entities;
+using Agro.Models;
+using Agro.Services.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,22 +9,36 @@ namespace Agro.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IDosingTaskService _dosingTaskService;
+        private readonly IProductService _productService;
+        private readonly IProductRecipeService _productRecipeService;
+        private readonly ITaskMessageService _taskMessageService;
+        private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IDosingTaskService dosingTaskService, IProductService productService,
+            IProductRecipeService productRecipeService, ITaskMessageService taskMessageService, IMapper mapper)
         {
-            _logger = logger;
+            _dosingTaskService = dosingTaskService;
+            _productService = productService;
+            _productRecipeService = productRecipeService;
+            _taskMessageService = taskMessageService;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "Администратор")]
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> GetData()
         {
-            return View();
+            var taskMessages = await _taskMessageService.GetAllTaskMessages();
+            var productRecipes = await _productRecipeService.GetAllProductRecipes();
+            var products = await _productService.GetAllProducts();
+            var currentDosingTasks = await _dosingTaskService.GetCurrentDosingTasks();
+            var model = _mapper.Map<IEnumerable<DosingTask>, IList<CurrentStateViewModel>>(currentDosingTasks);
+            return PartialView("_CurrentState", model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

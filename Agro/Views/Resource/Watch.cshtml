@@ -1,0 +1,78 @@
+﻿@model ResourceViewModel
+@{
+    ViewData["Title"] = "Cырье";
+}
+
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-7">
+            <div class="mb-4">
+                <h3>Cырье</h3>
+            </div>
+            <form asp-action="Watch" asp-controller="Resource">
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Code, "Код")
+                    @Html.TextBoxFor(m=>m.Code, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.Code)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.ShortName, "Сокращенное название")
+                    @Html.TextBoxFor(m=>m.ShortName, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.ShortName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Name, "Полное название")
+                    @Html.TextBoxFor(m=>m.Name, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.Name)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Activity, "Активность")
+                    @Html.TextBoxFor(m=>m.Activity, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.Activity)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Density, "Плотность, кг/м³")
+                    @Html.TextBoxFor(m=>m.Density, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.Density)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.TechTolerance, "Техническая погрешность, %")
+                    @Html.TextBoxFor(m=>m.TechTolerance, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.TechTolerance)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.RejectTolerance, "Погрешность некондиции, %")
+                    @Html.TextBoxFor(m=>m.RejectTolerance, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.RejectTolerance)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.AlertTolerance, "Аварийная погрешность, %")
+                    @Html.TextBoxFor(m=>m.AlertTolerance, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.AlertTolerance)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.ResourceTypeId, "Тип сырья")
+                    @Html.DropDownListFor(m=>m.ResourceTypeId, new SelectList(ViewBag.ResourceTypes, "Id", "Name"),
+                    new { @class="form-select", @disabled = "disabled" })
+                    @Html.ValidationMessageFor(m=>m.ResourceTypeId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.DosingTypeId, "Тип дозирования")
+                    @Html.DropDownListFor(m=>m.DosingTypeId, new SelectList(ViewBag.DosingTypes, "Id", "Name"),
+                    new { @class="form-select", @disabled = "disabled" })
+                    @Html.ValidationMessageFor(m=>m.DosingTypeId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Comment, "Комментарий")
+                    @Html.TextAreaFor(m=>m.Comment, 3, 1, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.Comment)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.LastChange, "Последнее изменение")
+                    @Html.TextBoxFor(m=>m.LastChange, null, new { @class="form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m=>m.LastChange)
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

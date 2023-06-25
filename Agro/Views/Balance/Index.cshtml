@@ -50,6 +50,10 @@
                         <td>@p.MaxWeight</td>
                         <td>@p.Area?.Name</td>
                         <td>
+                            @if (@User.IsInRole("Оператор"))
+                            {
+                                <a href="@Url.Action("Watch", "Balance", new {id=p.Id})" class="table-button"><i class="fa fa-eye"></i></a>
+                            }
                             @if (!@User.IsInRole("Оператор"))
                             {
                                 var deleteModal = "deleteModal" + @p.Id;

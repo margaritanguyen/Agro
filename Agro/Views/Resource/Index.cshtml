@@ -52,6 +52,10 @@
                         <td>@p.ResourceType?.Name</td>
                         <td>@p.DosingType?.Name</td>
                         <td>
+                            @if (@User.IsInRole("Оператор"))
+                            {
+                                <a href="@Url.Action("Watch", "Resource", new {id=p.Id})" class="table-button"><i class="fa fa-eye"></i></a>
+                            }
                             @if (!@User.IsInRole("Оператор"))
                             {
                                 var deleteModal = "deleteModal" + @p.Id;

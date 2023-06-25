@@ -148,6 +148,22 @@ namespace Agro.Controllers
             return View(model);
         }
 
+        [Authorize]
+        public async Task<IActionResult> Watch(int id)
+        {
+            TempData["returnUrl"] = Request.Headers["Referer"].ToString();
+
+            var dosingTypes = await _dosingTypeService.GetAllDosingTypes();
+            ViewBag.DosingTypes = dosingTypes;
+
+            var resourceTypes = await _resourceTypeService.GetAllResourceTypes();
+            ViewBag.ResourceTypes = resourceTypes;
+
+            var resource = await _resourceService.GetResource(id);
+            var model = _mapper.Map<ResourceViewModel>(resource);
+            return View(model);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Администратор,Технолог,Инженер")]
         public async Task<IActionResult> Delete(int id)

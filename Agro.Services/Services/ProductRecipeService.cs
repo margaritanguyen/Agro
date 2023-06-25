@@ -21,7 +21,13 @@ namespace Agro.Services.Services
             return await UnitOfWork.ProductRecipes.Get(id);
         }
 
-        public async Task<IList<ProductRecipe>> GetAllProductRecipes(int productId)
+        public async Task<IList<ProductRecipe>> GetAllProductRecipes()
+        {
+            IList<ProductRecipe> productRecipes = await UnitOfWork.ProductRecipes.GetAll();
+            return productRecipes;
+        }
+
+        public async Task<IList<ProductRecipe>> GetAllProductRecipesByProductId(int productId)
         {
             IList<ProductRecipe> productRecipes = await UnitOfWork.ProductRecipes.GetAll();
             return productRecipes.Where(x => x.ProductId == productId).ToList();

@@ -32,6 +32,8 @@ namespace Agro.Controllers
         {
             var taskMessages = await _taskMessageService.GetAllTaskMessages();
             var dosingTasks = await _dosingTaskService.GetAllDosingTasks();
+            var productRecipes = await _productRecipeService.GetAllProductRecipes();
+            var products = await _productService.GetAllProducts();
 
             if (filter != null)
                 dosingTasks = dosingTasks.Where(x => x.ManufNr.ToString().Contains(filter.ToLower())).ToList();
@@ -49,7 +51,7 @@ namespace Agro.Controllers
 
             if (productId != null)
             {
-                var productRecipes = await _productRecipeService.GetAllProductRecipes((int)productId);
+                var productRecipes = await _productRecipeService.GetAllProductRecipesByProductId((int)productId);
                 ViewBag.ProductRecipes = productRecipes;
             }
             else
@@ -93,7 +95,7 @@ namespace Agro.Controllers
 
             if (model.ProductId != null)
             {
-                var productRecipes = await _productRecipeService.GetAllProductRecipes((int)model.ProductId);
+                var productRecipes = await _productRecipeService.GetAllProductRecipesByProductId((int)model.ProductId);
                 ViewBag.ProductRecipes = productRecipes;
             }
             else
@@ -122,7 +124,7 @@ namespace Agro.Controllers
             model.ProductId = productRecipe.ProductId;
             var products = await _productService.GetAllProducts();
             ViewBag.Products = products;
-            var productRecipes = await _productRecipeService.GetAllProductRecipes(productRecipe.ProductId);
+            var productRecipes = await _productRecipeService.GetAllProductRecipesByProductId(productRecipe.ProductId);
             ViewBag.ProductRecipes = productRecipes;
             return View(model);
         }
@@ -140,7 +142,7 @@ namespace Agro.Controllers
 
             var products = await _productService.GetAllProducts();
             ViewBag.Products = products;
-            var productRecipes = await _productRecipeService.GetAllProductRecipes(model.ProductRecipe.ProductId);
+            var productRecipes = await _productRecipeService.GetAllProductRecipesByProductId(model.ProductRecipe.ProductId);
             ViewBag.ProductRecipes = productRecipes;
             return View(model);
         }

@@ -27,6 +27,12 @@ namespace Agro.Services.Services
             return dosingTasks;
         }
 
+        public async Task<IList<DosingTask>> GetCurrentDosingTasks()
+        {
+            IList<DosingTask> dosingTasks = await UnitOfWork.DosingTasks.GetAll();
+            return dosingTasks.Where(x => x.TaskMessageId == 3).ToList();
+        }
+
         public async Task UpdateDosingTask(DosingTask dosingTask)
         {
             await UnitOfWork.DosingTasks.Update(dosingTask);

@@ -188,6 +188,29 @@ namespace Agro.Controllers
             return View(model);
         }
 
+        [Authorize]
+        public async Task<IActionResult> Watch(int id)
+        {
+            TempData["returnUrl"] = Request.Headers["Referer"].ToString();
+
+            var areas = await _areaService.GetAllAreas();
+            ViewBag.Areas = areas;
+
+            var balances = await _balanceService.GetAllBalances();
+            ViewBag.Balances = balances;
+
+            var siloTypes = await _siloTypeService.GetAllSiloTypes();
+            ViewBag.SiloTypes = siloTypes;
+
+            var resources = await _resourceService.GetAllResources();
+            ViewBag.Resources = resources;
+
+            var silo = await _siloService.GetSilo(id);
+            var model = _mapper.Map<SiloViewModel>(silo);
+            TempData["previousResourceId"] = model.ResourceId;
+            return View(model);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Администратор,Технолог,Инженер")]
         public async Task<IActionResult> Delete(int id)
