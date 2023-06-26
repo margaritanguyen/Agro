@@ -92,11 +92,7 @@
                                         var deleteModal = "deleteModal" + @p.Id;
                                         <a href="@Url.Action("Edit", "ProductRecipe", new {id=p.Id})" class="table-button"><i class="fa fa-pencil"></i></a>
                                         <span>|</span>
-                                        using (Html.BeginForm("Copy", "ProductRecipe", new { id = @p.Id }))
-                                        {
-                                            <button type="submit" class="btn btn-light"><i class="fa fa-clone"></i></button>
-                                        }
-                                        @*<a href="#" class="table-button"><i class="fa fa-clone"></i></a>*@
+                                        <a href="@Url.Action("Copy", "ProductRecipe", new {id=p.Id})" class="table-button"><i class="fa fa-clone"></i></a>
                                         <span>|</span>
                                         <a href="#" data-target="#@deleteModal" data-toggle="modal" data-id="@p.Id" class="table-button"><i class="fa fa-trash table-button"></i></a>
                                         using (Html.BeginForm("Delete", "ProductRecipe", new { id = @p.Id }))

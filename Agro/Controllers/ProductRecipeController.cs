@@ -110,7 +110,6 @@ namespace Agro.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-        [HttpPost]
         [Authorize(Roles = "Администратор,Технолог,Инженер")]
         public async Task<IActionResult> Copy(int id)
         {

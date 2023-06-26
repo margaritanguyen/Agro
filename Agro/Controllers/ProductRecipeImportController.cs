@@ -84,9 +84,9 @@ namespace Agro.Controllers
                     if (line[0].ToLower().StartsWith("итого")) break;
                     if (line[0].ToLower().StartsWith("всего")) break;
 
-                    var resourceContent = Convert.ToSingle(line[7].Replace(',', '.'));
+                    var resourceContent = Convert.ToSingle(line[7]); //.Replace(',', '.')
                     var resourceName = line[0];
-                    var resourceActivity = Convert.ToDouble(line[3].Replace(',', '.'));
+                    var resourceActivity = Convert.ToDouble(line[3]); //.Replace(',', '.')
                     var resource = await FindResource(resourceName, resourceActivity);
                     recipeIngredients.Add(
                         new RecipeIngredient
@@ -145,7 +145,8 @@ namespace Agro.Controllers
                         Number = number,
                         Name = name,
                         ShortName = shortName,
-                        LastChange = DateTime.Now
+                        LastChange = DateTime.Now,
+                        MaxBatchSize = 1000
                     });
             }
 
@@ -164,7 +165,8 @@ namespace Agro.Controllers
                     {
                         IsEnabled = true,
                         ProductId = productId,
-                        Version = 1
+                        Version = 1,
+                        LastChange = DateTime.Now
                     });
             }
             else
