@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agro.Services", "Agro.Servi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agro", "Agro\Agro.csproj", "{394E0F06-1F3C-4558-802A-46B9435F712C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agro.Tests", "Agro.Tests\Agro.Tests.csproj", "{B8569188-8F22-4F03-9605-1CD973F9E3A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{394E0F06-1F3C-4558-802A-46B9435F712C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{394E0F06-1F3C-4558-802A-46B9435F712C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{394E0F06-1F3C-4558-802A-46B9435F712C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8569188-8F22-4F03-9605-1CD973F9E3A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8569188-8F22-4F03-9605-1CD973F9E3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8569188-8F22-4F03-9605-1CD973F9E3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8569188-8F22-4F03-9605-1CD973F9E3A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
