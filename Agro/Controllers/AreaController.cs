@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Agro.Controllers
 {
 
+    [Route("api/[controller]/[action]")]
+    [ApiController]
     public class AreaController : Controller
     {
         private readonly IAreaService _areaService;
@@ -20,6 +22,7 @@ namespace Agro.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Index(int? pageNumber, string sortOrder, string filter)
         {
@@ -52,6 +55,7 @@ namespace Agro.Controllers
             return View(pagedList);
         }
 
+        [HttpGet]
         [Authorize(Roles = "Администратор,Технолог,Инженер")]
         public IActionResult Create()
         {
@@ -80,6 +84,7 @@ namespace Agro.Controllers
             return View(model);
         }
 
+        [HttpGet]
         [Authorize(Roles = "Администратор,Технолог,Инженер")]
         public async Task<IActionResult> Edit(int id)
         {
