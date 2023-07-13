@@ -7,10 +7,10 @@ namespace Agro.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         public int Code { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         [MaxLength(64)]
         [Unicode]
         public string Name { get; set; }

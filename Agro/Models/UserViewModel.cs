@@ -8,17 +8,17 @@ namespace Agro.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         [MaxLength(32)]
         [Unicode]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         [MaxLength(64)]
         [Unicode]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
       

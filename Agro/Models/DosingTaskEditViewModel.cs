@@ -9,10 +9,10 @@ namespace Agro.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         public float BatchSize { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         public int BatchCount { get; set; }
 
         public Silo? SiloOne { get; set; }

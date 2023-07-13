@@ -10,23 +10,23 @@ namespace Agro.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         public int ManufNr { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         public int Priority { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         public float BatchSize { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         public int BatchCount { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         [DefaultValue(0)]
         public int InProcessBatchCount { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         [DefaultValue(0)]
         public int ReadyBatchCount { get; set; }
 
@@ -56,7 +56,7 @@ namespace Agro.Models
         [AllowNull]
         public string ClientName { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         [DefaultValue(false)]
         public bool IsReady { get; set; }
     }

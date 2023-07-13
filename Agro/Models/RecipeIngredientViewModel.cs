@@ -13,10 +13,10 @@ namespace Agro.Models
         public Resource? Resource { get; set; }
         public int ResourceId { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         public float ResourceContent { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         public int DosingPriority { get; set; }
 
 

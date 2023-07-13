@@ -4,10 +4,10 @@ namespace Agro.Models
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Обязательное поле.")]
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
