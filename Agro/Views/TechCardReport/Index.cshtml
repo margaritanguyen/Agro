@@ -9,7 +9,14 @@
                 <div class="col-sm-8">
                     <h2>Технологическая карта</h2>
                 </div>
-            </div>
+                <div class="col-sm-4">
+                    <div class="btn-toolbar">
+                        <div style="display: inline-grid; grid-template-columns: 1fr 1fr; grid-gap: 5px; float: right;">
+                            <a class="btn btn-primary" href="/Product/Export">Экспорт</a>                        
+                        </div>
+                    </div>
+                </div>
+        </div>
         </div>
         <div>
             <h6>Номер заказа: @Model.Max(x => x.ManufNr)</h6>
