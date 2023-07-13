@@ -86,6 +86,21 @@ namespace Agro.Controllers
             return View(model);
         }
 
+        [Authorize]
+        public async Task<IActionResult> Watch(int id)
+        {
+            TempData["returnUrl"] = Request.Headers["Referer"].ToString();
+
+            var resources = await _resourceService.GetAllResources();
+            var productRecipe = await _productRecipeService.GetProductRecipe(id);
+            var model = _mapper.Map<ProductRecipeViewModel>(productRecipe);
+            var product = await _productService.GetProduct(productRecipe.ProductId);
+            var recipeIngredients = await _recipeIngredientService.GetAllRecipeIngredients(id);
+            model.RecipeIngredients = recipeIngredients;
+            model.Product = product;
+            return View(model);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Администратор,Технолог,Инженер")]
         public async Task<IActionResult> Delete(int id)
@@ -95,7 +110,6 @@ namespace Agro.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-        [HttpPost]
         [Authorize(Roles = "Администратор,Технолог,Инженер")]
         public async Task<IActionResult> Copy(int id)
         {
@@ -120,7 +134,7 @@ namespace Agro.Controllers
 
         private async Task<int> GenerateVersion(int productId)
         {
-            var productRecipes = await _productRecipeService.GetAllProductRecipes(productId);
+            var productRecipes = await _productRecipeService.GetAllProductRecipesByProductId(productId);
             var lastRecipe = productRecipes.Where(x => x.ProductId == productId).OrderByDescending(x => x.Version).FirstOrDefault();
             var version = lastRecipe != null ? lastRecipe.Version + 1 : 1;
             return version;

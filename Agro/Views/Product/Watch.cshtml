@@ -1,59 +1,59 @@
 ﻿@model ProductEditViewModel
 @{
-    ViewData["Title"] = "Изменить продукт";
+    ViewData["Title"] = "Продукт";
 }
 
 <div class="container">
     <div class="row">
         <div class="mb-4">
-            <h3>Изменить продукт</h3>
+            <h3>Продукт</h3>
         </div>
         <div class="col-md-6">
             <form asp-action="Edit" asp-controller="Product">
                 <div class="form-group">
                     @Html.LabelFor(m=>m.Number, "Номер")
-                    @Html.TextBoxFor(m=>m.Number, null, new { @class="form-control" })
+                    @Html.TextBoxFor(m=>m.Number, null, new { @class="form-control", @readonly = "readonly" })
                     @Html.ValidationMessageFor(m=>m.Number)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m=>m.ShortName, "Сокращенное название")
-                    @Html.TextBoxFor(m=>m.ShortName, null, new { @class="form-control" })
+                    @Html.TextBoxFor(m=>m.ShortName, null, new { @class="form-control", @readonly = "readonly" })
                     @Html.ValidationMessageFor(m=>m.ShortName)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m=>m.Name, "Полное название")
-                    @Html.TextBoxFor(m=>m.Name, null, new { @class="form-control" })
+                    @Html.TextBoxFor(m=>m.Name, null, new { @class="form-control", @readonly = "readonly" })
                     @Html.ValidationMessageFor(m=>m.Name)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m=>m.MinBatchSize, "Минимальный размер порции, кг")
-                    @Html.TextBoxFor(m=>m.MinBatchSize, null, new { @class="form-control" })
+                    @Html.TextBoxFor(m=>m.MinBatchSize, null, new { @class="form-control", @readonly = "readonly" })
                     @Html.ValidationMessageFor(m=>m.MinBatchSize)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m=>m.MaxBatchSize, "Максимальный размер порции, кг")
-                    @Html.TextBoxFor(m=>m.MaxBatchSize, null, new { @class="form-control" })
+                    @Html.TextBoxFor(m=>m.MaxBatchSize, null, new { @class="form-control", @readonly = "readonly" })
                     @Html.ValidationMessageFor(m=>m.MaxBatchSize)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m=>m.MixTime, "Время смешивания, с")
-                    @Html.TextBoxFor(m=>m.MixTime, null, new { @class="form-control" })
+                    @Html.TextBoxFor(m=>m.MixTime, null, new { @class="form-control", @readonly = "readonly" })
                     @Html.ValidationMessageFor(m=>m.MixTime)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m=>m.DryMixTime, "Время сухого смешивания, с")
-                    @Html.TextBoxFor(m=>m.DryMixTime, null, new { @class="form-control" })
+                    @Html.TextBoxFor(m=>m.DryMixTime, null, new { @class="form-control", @readonly = "readonly" })
                     @Html.ValidationMessageFor(m=>m.DryMixTime)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m=>m.AnimalGroupId, "Группа животных")
                     @Html.DropDownListFor(m=>m.AnimalGroupId, new SelectList(ViewBag.AnimalGroups, "Id", "Name"),
-                    "Не выбрана", new { @class="form-select" })
+                    "Не выбрана", new { @class="form-select", @disabled = "disabled" })
                     @Html.ValidationMessageFor(m=>m.AnimalGroupId)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m=>m.Comment, "Комментарий")
-                    @Html.TextAreaFor(m=>m.Comment, 3, 1, new { @class="form-control" })
+                    @Html.TextAreaFor(m=>m.Comment, 3, 1, new { @class="form-control", @readonly = "readonly" })
                     @Html.ValidationMessageFor(m=>m.Comment)
                 </div>
                 <div class="form-group">
@@ -61,14 +61,9 @@
                     @Html.TextBoxFor(m=>m.LastChange, null, new { @class="form-control", @readonly = "readonly" })
                     @Html.ValidationMessageFor(m=>m.LastChange)
                 </div>
-                <button type="submit" class="btn btn-block btn-primary">Изменить</button>
             </form>
         </div>
         <div class="col-md-6">
-            @if (!@User.IsInRole("Оператор"))
-            {
-                <a class="btn btn-block btn-primary" href="/ProductRecipe/Create?productId=@Model.Id">Добавить</a>
-            }
             <div class="table-wrapper">
                 <table class="table">
                     <thead>
@@ -87,20 +82,9 @@
                                 <td>@(p.IsEnabled ? "Да" : "Нет")</td>
                                 <td>@p.Comment</td>
                                 <td>
-                                    @if (!@User.IsInRole("Оператор"))
+                                    @if (@User.IsInRole("Оператор"))
                                     {
-                                        var deleteModal = "deleteModal" + @p.Id;
-                                        <a href="@Url.Action("Edit", "ProductRecipe", new {id=p.Id})" class="table-button"><i class="fa fa-pencil"></i></a>
-                                        <span>|</span>
-                                        <a href="@Url.Action("Copy", "ProductRecipe", new {id=p.Id})" class="table-button"><i class="fa fa-clone"></i></a>
-                                        <span>|</span>
-                                        <a href="#" data-target="#@deleteModal" data-toggle="modal" data-id="@p.Id" class="table-button"><i class="fa fa-trash table-button"></i></a>
-                                        using (Html.BeginForm("Delete", "ProductRecipe", new { id = @p.Id }))
-                                        {
-                                            <div class="confirm-delete" id="@deleteModal">
-                                                <partial name="_ConfirmDeletePartial" />
-                                            </div>
-                                        }
+                                        <a href="@Url.Action("Watch", "ProductRecipe", new {id=p.Id})" class="table-button"><i class="fa fa-eye"></i></a>
                                     }
                                 </td>
                             </tr>

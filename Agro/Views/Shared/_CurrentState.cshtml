@@ -1,0 +1,34 @@
+﻿@model IList<CurrentStateViewModel>
+
+<div class="table-wrapper">
+    <div class="table-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Текущие задания</h2>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Номер заказа</th>
+                <th>Продукт</th>
+                <th>Дозируется</th>
+                <th>Готово</th>
+                <th>Размер порции, кг</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.ManufNr</td>
+                    <td>@p.ProductRecipe?.Product?.ShortName</td>
+                    <td>@p.InProcessBatchCount</td>
+                    <td>@p.ReadyBatchCount/@p.BatchCount</td>
+                    <td>@p.BatchSize</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

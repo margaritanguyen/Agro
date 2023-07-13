@@ -11,7 +11,6 @@ using System.Security.Claims;
 
 namespace Agro.Controllers
 {
-
     public class UserController : Controller
     {
         private readonly IUserService _userService;

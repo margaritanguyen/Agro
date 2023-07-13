@@ -15,7 +15,7 @@
         <div class="card p-3 mb-3 filter-panel">
             @using (Html.BeginForm("Index", "BatchReport", FormMethod.Get))
             {
-                @Html.TextBox("filter", null, new { @class="form-control filter-input", @placeholder = "Название" })
+                @Html.TextBox("filter", null, new { @class="form-control filter-input", @placeholder = "Номер заказа или продукт" })
                 <input type="submit" value="Поиск" class="btn btn-secondary filter-input" />
             }
         </div>

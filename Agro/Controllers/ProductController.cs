@@ -102,7 +102,7 @@ namespace Agro.Controllers
 
             var product = await _productService.GetProduct(id);
             var model = _mapper.Map<ProductEditViewModel>(product);
-            var productRecipes = await _productRecipeService.GetAllProductRecipes(id);
+            var productRecipes = await _productRecipeService.GetAllProductRecipesByProductId(id);
             model.ProductRecipes = productRecipes;
             return View(model);
         }
@@ -122,6 +122,21 @@ namespace Agro.Controllers
             var animalGroups = await _animalGroupService.GetAllAnimalGroups();
             ViewBag.AnimalGroups = animalGroups;
 
+            return View(model);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Watch(int id)
+        {
+            TempData["returnUrl"] = Request.Headers["Referer"].ToString();
+
+            var animalGroups = await _animalGroupService.GetAllAnimalGroups();
+            ViewBag.AnimalGroups = animalGroups;
+
+            var product = await _productService.GetProduct(id);
+            var model = _mapper.Map<ProductEditViewModel>(product);
+            var productRecipes = await _productRecipeService.GetAllProductRecipesByProductId(id);
+            model.ProductRecipes = productRecipes;
             return View(model);
         }
 

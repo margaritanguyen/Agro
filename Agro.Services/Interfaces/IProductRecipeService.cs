@@ -6,7 +6,8 @@ namespace Agro.Services.Interfaces
     {
         Task<ProductRecipe> CreateProductRecipe(ProductRecipe productRecipe);
         Task<ProductRecipe> GetProductRecipe(int id);
-        Task<IList<ProductRecipe>> GetAllProductRecipes(int productId);
+        Task<IList<ProductRecipe>> GetAllProductRecipes();
+        Task<IList<ProductRecipe>> GetAllProductRecipesByProductId(int productId);
         Task UpdateProductRecipe(ProductRecipe productRecipe);
         Task DeleteProductRecipe(ProductRecipe productRecipe);
     }
